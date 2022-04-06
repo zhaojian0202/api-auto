@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<suite name="用户管理系统测试套件">
+    <test name="用户管理系统测试用例">
+        <classes>
+            <class name="com.autotest.qa.cases.TestCase">
+                <methods>
+                    <include name="register"/>
+                </methods>
+            </class>
+            <class name="com.autotest.qa.cases.KtaMainFlowTest">
+                <methods>
+                    <include name="register"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <listeners>
+        <listener class-name="com.autotest.qa.config.ExtentTestNGIReporterListener"/>
+    </listeners>
+</suite>
