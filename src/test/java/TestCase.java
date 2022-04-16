@@ -1,11 +1,10 @@
 import com.autotest.qa.annotations.DataDriver;
 import com.autotest.qa.common.ContextHolder;
-import com.autotest.qa.common.ExcelDataHeleper;
+import com.autotest.qa.utils.ExcelDataHelper;
 import com.autotest.qa.common.HttpRequest;
-import com.autotest.qa.common.KTA.KtaUtils;
-import com.autotest.qa.common.rpc.FeignService;
+import com.autotest.qa.kta.KtaUtils;
 import com.autotest.qa.common.rpc.KTAInvokeClient;
-import com.autotest.qa.utils.KTAPropertiesUtil;
+import com.autotest.qa.utils.PropertiesUtil;
 import com.finance.aggregation.api.UserLoginApi;
 import com.finance.aggregation.req.user.PhoneSendCodeReq;
 import com.rocket.common.def.api.Result;
@@ -20,23 +19,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class TestCase extends ExcelDataHeleper {
+public class TestCase extends ExcelDataHelper {
 
     private static final String THIS_EXCEL_PATH="data/Boss.xlsx";
-    @Autowired
-    private static FeignService feignService;
     @Autowired
     private static UserLoginApi userLoginApi;
 
     @BeforeClass
     public void init(){
-        userLoginApi= KTAInvokeClient.buildApi(KTAPropertiesUtil.getEnv("api.domain"),UserLoginApi.class);
+        userLoginApi= KTAInvokeClient.buildApi(PropertiesUtil.getEnv("api.domain"),UserLoginApi.class);
     }
 
     @Test(dataProvider = "excel")
     @DataDriver(filePath = THIS_EXCEL_PATH,sheetName = "commonPhoneSendCode")
     public void testM(Map param){
-        String url= KTAPropertiesUtil.getEnv("api.domain")+ param.get("uri");
+        String url= PropertiesUtil.getEnv("api.domain")+ param.get("uri");
         HttpHeaders httpHeaders=new HttpHeaders();
         System.out.println(param.get("mobileNo"));
         String mobileNo=param.get("mobileNo").toString();

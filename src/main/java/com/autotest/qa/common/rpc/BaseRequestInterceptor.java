@@ -3,7 +3,7 @@ package com.autotest.qa.common.rpc;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.autotest.qa.common.ContextHolder;
-import com.autotest.qa.common.KTA.KTAConstant;
+import com.autotest.qa.kta.KTAConstant;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 

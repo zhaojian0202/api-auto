@@ -1,13 +1,14 @@
 package com.autotest.qa.common.rpc;
 
+
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import feign.Feign;
 import feign.Logger;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
-import org.springframework.cloud.openfeign.support.SpringDecoder;
 import org.springframework.cloud.openfeign.support.SpringEncoder;
 import org.springframework.cloud.openfeign.support.SpringMvcContract;
+
 
 public class KTAInvokeClient {
 
@@ -36,4 +37,5 @@ public class KTAInvokeClient {
         }
         return (T) service;
     }
+
 }

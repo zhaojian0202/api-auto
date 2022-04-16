@@ -8,6 +8,7 @@ import com.autotest.qa.dao.StepType;
 import com.autotest.qa.utils.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.helpers.MessageFormatter;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,7 +16,6 @@ import java.util.List;
 
 /**
  * 用户记录日志的步骤信息
- * Update by liang.chen on 2022/02/01
  */
 public class StepLogger {
 
@@ -100,4 +100,8 @@ public class StepLogger {
         return onLogStep(stepInfo);
     }
 
+    public static void info(String message, Object... args) {
+        message= MessageFormatter.arrayFormat(message,args).getMessage();
+        logStep(StepType.ACTION,message,RunResult.PASS);
+    }
 }

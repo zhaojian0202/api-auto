@@ -3,15 +3,17 @@ package com.autotest.qa.cases;
 
 import com.alibaba.fastjson.JSON;
 import com.autotest.qa.annotations.DataDriver;
+import com.autotest.qa.common.BaseTest;
 import com.autotest.qa.common.ContextHolder;
-import com.autotest.qa.common.ExcelDataHeleper;
+import com.autotest.qa.kta.KtaDao;
 import com.autotest.qa.common.HttpRequest;
-import com.autotest.qa.common.KTA.KtaUtils;
-import com.autotest.qa.common.rpc.FeignService;
+import com.autotest.qa.kta.KtaUtils;
 import com.autotest.qa.common.rpc.KTAInvokeClient;
 import com.autotest.qa.dao.StepType;
 import com.autotest.qa.log.StepLogger;
-import com.autotest.qa.utils.KTAPropertiesUtil;
+import com.autotest.qa.testN.MyHook;
+import com.autotest.qa.utils.ExcelDataHelper;
+import com.autotest.qa.utils.PropertiesUtil;
 import com.finance.aggregation.api.UserLoginApi;
 import com.finance.aggregation.req.user.AccountVerifyReq;
 import com.finance.aggregation.req.user.PhoneSendCodeReq;
@@ -20,35 +22,40 @@ import com.rocket.common.def.api.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-@Listeners(TestListener.class)
-public class TestCase extends ExcelDataHeleper {
+public class TestCase extends BaseTest {
 
     private static final String THIS_EXCEL_PATH="data/Boss.xlsx";
-    @Autowired
-    private static FeignService feignService;
+
     @Autowired
     private static UserLoginApi userLoginApi;
+
+    @Autowired
+    private KtaDao ktaDao;
 
     private static final String mobileNo="876532625101";
 
     private static final String password="a1234556";
-    @BeforeClass
+    @BeforeTest
     public void init(){
-        userLoginApi= KTAInvokeClient.buildApi(KTAPropertiesUtil.getEnv("api.domain"),UserLoginApi.class);
+        userLoginApi= KTAInvokeClient.buildApi(PropertiesUtil.getEnv("api.domain"),UserLoginApi.class);
     }
 
-    @Test(dataProvider = "excel")
+    @Test(dataProvider = "excel",dataProviderClass = ExcelDataHelper.class,priority = 2)
     @DataDriver(filePath = THIS_EXCEL_PATH,sheetName = "commonPhoneSendCode")
     public void testM(Map param){
-        String url= KTAPropertiesUtil.getEnv("api.domain")+ param.get("uri");
+        String url= PropertiesUtil.getEnv("api.domain")+ param.get("uri");
         HttpHeaders httpHeaders=new HttpHeaders();
         System.out.println(param.get("mobileNo"));
         String mobileNo=param.get("mobileNo").toString();
@@ -62,7 +69,7 @@ public class TestCase extends ExcelDataHeleper {
         System.out.println(response);
     }
 
-    @Test(dataProvider = "excel")
+    @Test(dataProvider = "excel",dataProviderClass = ExcelDataHelper.class,priority = 1)
     @DataDriver(filePath = THIS_EXCEL_PATH,sheetName = "commonPhoneSendCode")
     public void test(Map param){
         //发送验证码
@@ -77,7 +84,7 @@ public class TestCase extends ExcelDataHeleper {
 
     }
 
-    @Test(dataProvider = "excel")
+    @Test(dataProvider = "excel",dataProviderClass = ExcelDataHelper.class,priority = 0)
     @DataDriver(filePath = THIS_EXCEL_PATH,sheetName = "accountVerify")
     public void register(Map param){
         try {

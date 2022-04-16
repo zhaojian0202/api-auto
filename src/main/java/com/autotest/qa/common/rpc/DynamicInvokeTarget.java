@@ -1,7 +1,5 @@
 package com.autotest.qa.common.rpc;
 
-import com.autotest.qa.common.ContextHolder;
-import com.autotest.qa.common.KTA.KTAConstant;
 import feign.Request;
 import feign.RequestTemplate;
 import feign.Target;

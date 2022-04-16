@@ -1,5 +1,6 @@
 package com.autotest.qa.common.rpc;
 
+import com.autotest.qa.log.StepLogger;
 import feign.FeignException;
 import feign.Response;
 import feign.codec.DecodeException;
@@ -12,9 +13,7 @@ import org.springframework.web.client.HttpMessageConverterExtractor;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.lang.reflect.WildcardType;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 @Slf4j
