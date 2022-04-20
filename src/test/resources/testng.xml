@@ -7,11 +7,6 @@
                     <include name="register"/>
                 </methods>
             </class>
-            <class name="com.autotest.qa.cases.KtaMainFlowTest">
-                <methods>
-                    <include name="register"/>
-                </methods>
-            </class>
         </classes>
     </test>
     <listeners>
