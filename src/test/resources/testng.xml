@@ -16,5 +16,6 @@
     </test>
     <listeners>
         <listener class-name="com.autotest.qa.config.ExtentTestNGIReporterListener"/>
+        <listener class-name="com.autotest.qa.testNG.listener.TestNgListener"/>
     </listeners>
 </suite>

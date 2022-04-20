@@ -11,7 +11,7 @@ import com.autotest.qa.kta.KtaUtils;
 import com.autotest.qa.common.rpc.KTAInvokeClient;
 import com.autotest.qa.dao.StepType;
 import com.autotest.qa.log.StepLogger;
-import com.autotest.qa.testN.MyHook;
+import com.autotest.qa.testNG.listener.TestNgListener;
 import com.autotest.qa.utils.ExcelDataHelper;
 import com.autotest.qa.utils.PropertiesUtil;
 import com.finance.aggregation.api.UserLoginApi;
@@ -22,18 +22,15 @@ import com.rocket.common.def.api.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+@Listeners(TestNgListener.class)
 public class TestCase extends BaseTest {
 
     private static final String THIS_EXCEL_PATH="data/Boss.xlsx";
@@ -109,6 +106,7 @@ public class TestCase extends BaseTest {
             ContextHolder.removeKey("deviceInfo");
         }
     }
+
 
 
 
